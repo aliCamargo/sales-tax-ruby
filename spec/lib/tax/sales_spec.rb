@@ -1,5 +1,5 @@
 describe Tax::Sales do
-  let(:item) { Item.new(name: 'Custom item', price: 10.0) }
+  let(:item) { Order::Item.new(name: 'Custom item', price: 10.0) }
   let(:calculator) { Tax::Basic.new(item: item) }
   let(:import_calculator) { Tax::Import.new(calculator: calculator) }
   let(:object) { described_class.new(calculator: calculator) }

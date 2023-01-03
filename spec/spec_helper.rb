@@ -1,4 +1,3 @@
-require './lib/item'
 require './lib/receipt'
 require './lib/reader'
 require './lib/order/item'

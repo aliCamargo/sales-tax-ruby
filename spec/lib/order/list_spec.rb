@@ -1,6 +1,6 @@
 describe Order::List do
-  let(:item) { Item.new(name: 'Custom item', price: 10.0) }
-  let(:item2) { Item.new(name: 'Custom item2', price: 20.0) }
+  let(:item) { Order::Item.new(name: 'Custom item', price: 10.0) }
+  let(:item2) { Order::Item.new(name: 'Custom item2', price: 20.0) }
   let(:object) { described_class.new }
 
   describe '#add_item' do
@@ -12,7 +12,7 @@ describe Order::List do
     it 'chnages size of the order items list' do
       expect do
         object.add_item(item: item)
-        object.add_item(item: item2, quantity: 2)
+        object.add_item(item: item2)
       end.to change { object.order_items.size }.by(2)
     end
   end

@@ -13,8 +13,8 @@ class Reader
     ol = Order::List.new
 
     @input.each do |input_item|
-      quantity, item = _to_item(input_item)
-      ol.add_item(item: item, quantity: quantity)
+      item = _to_item(input_item)
+      ol.add_item(item: item)
     end
 
     receipt = Receipt.new(order_list: ol)
@@ -29,13 +29,13 @@ class Reader
 
   def _category(name)
     if name.include?('pill')
-      Item::Category::MEDICAL
+      Order::Item::Category::MEDICAL
     elsif name.include?('book')
-      Item::Category::BOOK
+      Order::Item::Category::BOOK
     elsif name.include?('chocolate')
-      Item::Category::FOOD
+      Order::Item::Category::FOOD
     else
-      Item::Category::DEFAULT
+      Order::Item::Category::DEFAULT
     end
   end
 
@@ -48,6 +48,6 @@ class Reader
     is_imported = detail.include?('imported')
     category = _category(name)
 
-    [quantity, Item.new(name: name, price: price, category: category, is_imported: is_imported)]
+    Order::Item.new(name: name, price: price, quantity: quantity, category: category, is_imported: is_imported)
   end
 end

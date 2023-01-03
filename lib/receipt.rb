@@ -12,20 +12,17 @@ class Receipt
   end
 
   def total
-    @total_price.round(2)
+    @total_price
   end
 
   def print
-    @order_list.order_items.each do |order_item|
-      item = order_item.item
-      tax = item.tax * order_item.quantity
-      tax = item.is_imported || !item.exempt? ? _round(tax) : tax.round(2)
-      price = item.price * order_item.quantity + tax
-
+    @order_list.order_items.each do |item|
+      tax = item.tax
+      price = item.price_with_tax
       @total_price += price
       @total_tax += tax
 
-      puts "#{order_item.quantity} #{'imported ' if item.is_imported}#{item.name}: #{price.round(2)}"
+      puts item.to_s
     end
 
     puts "#{'-' * 25}\nSales Taxes: #{sales_tax}\nTotal: #{total}"
